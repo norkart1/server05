@@ -1,4 +1,4 @@
-// server/app.js
+
 
 const express = require('express');
 const app = express();
@@ -24,6 +24,9 @@ const pusher = new Pusher({
   cluster: process.env.PUSHER_CLUSTER,
   useTLS: true,
 });
+
+app.set('trust proxy', true);
+
 
 // Connect to Database
 connectDb();
