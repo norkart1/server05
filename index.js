@@ -30,8 +30,8 @@ connectDb();
 
 // Rate Limiting
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
+  windowMs: 15 * 60 * 1000,
+  max: 100,
 });
 
 // Middleware setup
@@ -55,8 +55,16 @@ app.use((req, res, next) => {
   next();
 });
 
-// Routes
+// API Routes
 app.use('/api', resultRoute);
+
+// Root Route (Fix for 404 at '/')
+app.get('/', (req, res) => {
+  res.send('Arts Festival API is running');
+});
+
+// Favicon Handler (optional)
+app.get('/favicon.ico', (req, res) => res.status(204));
 
 // 404 handler
 app.all('*', (req, res) => {
